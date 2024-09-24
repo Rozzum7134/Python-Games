@@ -1,50 +1,50 @@
 import random
 
 game = input("""Pick a Game
-1=Find Your animal Intellgence
+1 = Find Your animal Intellgence
 Enter Number Here: """)
 
 if game == "1":
 
   question = int(input("""What diffucullty of question do you want
-  (1-10): """))
+  (1-9): """))
 
-  ques1_1 = random.randint(1, 9)
-  ques1_2 = random.randint(1, 9)
-  ques2_1 = random.randint(10, 99)
-  ques2_2 = random.randint(10, 99)
-  ques3_1 = random.randint(100, 999)
-  ques3_2 = random.randint(100, 999)
-  ques4_1 = random.randint(1000, 9999)
-  ques4_2 = random.randint(1000, 9999)
-  ques5_1 = random.randint(10000, 99999)
-  ques5_2 = random.randint(10000, 99999)
-  ques6_1 = random.randint(100000, 999999)
-  ques6_2 = random.randint(100000, 999999)
-  ques7_1 = random.randint(1000000, 9999999)
-  ques7_2 = random.randint(1000000, 9999999)
-  ques8_1 = random.randint(10000000, 99999999)
-  ques8_2 = random.randint(10000000, 99999999)
-  ques9_1 = random.randint(100000000, 999999999)
-  ques9_2 = random.randint(100000000, 999999999)
-  ques10_1 = random.randint(1000000000, 9999999999)
-  ques10_2 = random.randint(1000000000, 9999999999)
-  anw=0
+  ques1_1 = random.randint(1,9)
+  ques1_2 = random.randint(1,9)
+  ques2_1 = random.randint(10,99)
+  ques2_2 = random.randint(10,99)
+  ques3_1 = random.randint(100,999)
+  ques3_2 = random.randint(100,999)
+  ques4_1 = random.randint(1000,9999)
+  ques4_2 = random.randint(1000,9999)
+  ques5_1 = random.randint(10000,99999)
+  ques5_2 = random.randint(10000,99999)
+  ques6_1 = random.randint(100000,999999)
+  ques6_2 = random.randint(100000,999999)
+  ques7_1 = random.randint(1000000,9999999)
+  ques7_2 = random.randint(1000000,9999999)
+  ques8_1 = random.randint(10000000,99999999)
+  ques8_2 = random.randint(10000000,99999999)
+  ques9_1 = random.randint(100000000,999999999)
+  ques9_2 = random.randint(100000000,999999999)
+  ques10_1 = random.randint(1000000000,9999999999)
+  ques10_2 = random.randint(1000000000,9999999999)
 
-  array1 = [ques1_1, ques2_1, ques3_1, ques4_1, ques5_1, ques6_1, ques7_1, ques8_1,ques9_1, ques10_1]
-  array2 = [ques1_2, ques2_2, ques3_2, ques4_2, ques5_2, ques6_2, ques7_2, ques8_2,ques9_2, ques10_2]
-  
-  oppdec = ["^", "+", "-", "*", "/"]
+  array1 = [ques1_1, ques2_1, ques3_1, ques4_1, ques5_1,
+  ques6_1, ques7_1, ques8_1,ques9_1, ques10_1]
+  array2 = [ques1_2, ques2_2, ques3_2, ques4_2, ques5_2,
+  ques6_2, ques7_2, ques8_2,ques9_2, ques10_2]
+  oppdec = ["^", "+", "-", "x", "/"]
 
   if question == 10:
-    opp = 0
-  elif question <= 4:
+     opp = 0 
+  elif question <= 5:
     add_sub = random.randint(1, 2)
     if add_sub == 1:
       opp = 1
     elif add_sub == 2:
       opp = 2
-  elif question >= 5:
+  elif question <= 9:
     mult_div = random.randint(1, 2)
     if mult_div == 1:
       opp = 3
@@ -52,57 +52,55 @@ if game == "1":
       opp = 4
 
   def math(index):
-    index = index - 1
     if opp == 0:
       return array1[index] ** array2[index]
-    if opp == 1:
+    elif opp == 1:
       return array1[index] + array2[index]
-    if opp == 2:
+    elif opp == 2:
       return array1[index] - array2[index]
-    if opp == 3:
+    elif opp == 3:
       return array1[index] * array2[index]
-    if opp == 4:
+    elif opp == 4:
       return array1[index] / array2[index]
 
   def anwser(animal, index):
     index = index - 1
     anw = math(index)
-    ask = int(input(f"What is {array1[index]} {oppdec[opp]} {array2[index]}: "))
+    ask = float(input(f"What is {array1[index]} {oppdec[opp]} {array2[index]}: "))
     if ask == anw:
       print(f"Correct you are as smart as a {animal}")
     else:
-      print("Inncorrect you are as dumb as QUAZI")
-      print(anw)
-      print(opp)
-      print(ask)
+      print(f"Inncorrect the Correct anwser was {anw}")
 
   if question == 1:
-      math(1)
       anwser("RAT",1)
-
-  if question == 2:
+      
+  elif question == 2:
     anwser("OCTOPUS", 2)
-
-  if question == 3:
+    
+  elif question == 3:
     anwser("PIGEON", 3)
-
-  if question == 4:
+    
+  elif question == 4:
     anwser("SQUIRREL", 4)
-
-  if question == 5:
+    
+  elif question == 5:
     anwser("PIG", 5)
-
-  if question == 6:
+    
+  elif question == 6:
     anwser("CROW", 6)
-
-  if question == 7:
+    
+  elif question == 7:
     anwser("ELEPHANT", 7)
-
-  if question == 8:
+    
+  elif question == 8:
     anwser("ORANGUTAN", 8)
-
-  if question == 9:
+    
+  elif question == 9:
     anwser("DOLPHIN", 9)
-
-  if question == 10:
+    
+  elif question == 10:
     anwser("CHIMPANZEE", 10)
+
+#To Add:
+#Bugs: 10 does not work
