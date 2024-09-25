@@ -7,7 +7,7 @@ Enter Number Here: """)
 if game == "1":
 
   question = int(input("""What diffucullty of question do you want
-  (1-9): """))
+  (1-10): """))
 
   ques1_1 = random.randint(1,9)
   ques1_2 = random.randint(1,9)
@@ -36,25 +36,21 @@ if game == "1":
   ques6_2, ques7_2, ques8_2,ques9_2, ques10_2]
   oppdec = ["^", "+", "-", "x", "/"]
 
-  if question == 10:
-     opp = 0 
-  elif question <= 5:
+  if question <= 5:
     add_sub = random.randint(1, 2)
     if add_sub == 1:
       opp = 1
     elif add_sub == 2:
       opp = 2
-  elif question <= 9:
+  elif question <= 10:
     mult_div = random.randint(1, 2)
     if mult_div == 1:
       opp = 3
     elif mult_div == 2:
       opp = 4
 
-  def math(index):
-    if opp == 0:
-      return array1[index] ** array2[index]
-    elif opp == 1:
+  def math(index,opp):
+    if opp == 1:
       return array1[index] + array2[index]
     elif opp == 2:
       return array1[index] - array2[index]
@@ -63,9 +59,10 @@ if game == "1":
     elif opp == 4:
       return array1[index] / array2[index]
 
+
   def anwser(animal, index):
     index = index - 1
-    anw = math(index)
+    anw = math(index,opp)
     ask = float(input(f"What is {array1[index]} {oppdec[opp]} {array2[index]}: "))
     if ask == anw:
       print(f"Correct you are as smart as a {animal}")
@@ -73,34 +70,34 @@ if game == "1":
       print(f"Inncorrect the Correct anwser was {anw}")
 
   if question == 1:
-      anwser("RAT",1)
-      
-  elif question == 2:
+    anwser("RAT",1)
+    
+  if question == 2:
     anwser("OCTOPUS", 2)
     
-  elif question == 3:
+  if question == 3:
     anwser("PIGEON", 3)
     
-  elif question == 4:
+  if question == 4:
     anwser("SQUIRREL", 4)
     
-  elif question == 5:
+  if question == 5:
     anwser("PIG", 5)
     
-  elif question == 6:
+  if question == 6:
     anwser("CROW", 6)
     
-  elif question == 7:
+  if question == 7:
     anwser("ELEPHANT", 7)
     
-  elif question == 8:
+  if question == 8:
     anwser("ORANGUTAN", 8)
     
-  elif question == 9:
+  if question == 9:
     anwser("DOLPHIN", 9)
     
-  elif question == 10:
+  if question == 10:
     anwser("CHIMPANZEE", 10)
 
 #To Add:
-#Bugs: 10 does not work
+#Bugs:
