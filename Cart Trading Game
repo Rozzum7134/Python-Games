@@ -1,13 +1,15 @@
+import random
+
 #Variables
-gold = 100
+gold = 100.00
 day = 1
 
 #Arrays
-buying_list = ["1 = bread", "2 = cheese", "3 = ham", "4 = clay","5 = bucket","6 = iron", "7 = steel","8 = coal",]
-shop_items = ["bread","cheese","ham","clay","bucket","iron","steel","coal",]
+buying_list = ["1 = bread", "2 = cheese", "3 = ham", "4 = clay","5 = wood","6 = iron", "7 = steel","8 = coal",]
+shop_items = ["bread","cheese","ham","clay","wood","iron","steel","coal",]
 shop_stock = [20,20,20,20,20,20,20,20]
-shop_prices = [3,5,7,2,4,6,9,4]
-inv = ["bread","cheese","ham","clay","bucket","iron","steel","coal",]
+shop_prices = [3.00,5.00,7.00,2.00,3.00,6.00,9.00,4.00]
+inv = ["bread","cheese","ham","clay","wood","iron","steel","coal",]
 inv_stock = [0,0,0,0,0,0,0,0]
 
 #Functions
@@ -23,6 +25,8 @@ def main_menu(day,gold):
       market(buy_sell,gold)
   elif decision == "w":
     day = day + 1
+    price_change(shop_prices)
+    print(shop_prices)
     print(f"You have {gold} gold")
     print(f"It is day {day}")
     main_menu(day,gold)
@@ -35,33 +39,18 @@ def main_menu(day,gold):
   else:
     main_menu(day,gold)
 
-def is_number(prompt) -> int:
-  variable = input(prompt)
-  while variable.isdigit() == False:
-    variable = input(prompt)
-  return(int(variable))
-    
+def price_change(shop_prices):
+  for i in range(len(shop_prices)):
+    percent_change = random.randint(-15,15)
+    change = shop_prices[i] * (percent_change/100)
+    shop_prices[i] = round(shop_prices[i] + change, 2)
+  
 def market(buy_sell,gold):
   if buy_sell == "b":
     print(buying_list)
     selection = is_number("What would you like to buy: ")
     if selection <= len(shop_items):
-      amount = is_number("How much would you like to buy: ")
-      if amount <= shop_stock[selection - 1]:
-        price = amount * shop_prices[selection - 1]
-        if price <= gold:
-          gold = gold - price
-          inv_stock[selection - 1] += amount
-          shop_stock[selection - 1] -= amount
-          print(f"You spent {price} gold and bought {amount} {shop_items[selection - 1]}")
-          main_menu(day,gold)
-        else:
-          can_buy = gold // shop_prices[selection - 1]
-          print(f"You can't afford this, You can buy {can_buy} {shop_items[selection - 1]}")
-          market(buy_sell,gold)
-      else:
-        print(f"The market only has {shop_stock[selection - 1]} {shop_items[selection - 1]}")
-        market(buy_sell,gold)
+      buying(selection,gold)
     else:
       market(buy_sell,gold)
   if buy_sell == "s":
@@ -72,27 +61,54 @@ def market(buy_sell,gold):
       for count, item in zip(inv_stock, buying_list):
         if count > 0:
           print (item + " " + "(You have " + str(count) + ")")
-      selection = input("What would you like to sell: ")
+      selection = is_number("What would you like to sell: ")
       if inv_stock[selection - 1] > 0:
-        amount = int(input("How much would you like to sell: "))
-        if amount <= inv_stock[selection - 1]:
-          profit = amount * shop_prices[selection - 1]
-          gold = gold + profit
-          inv_stock[selection - 1] -= amount
-          shop_stock[selection - 1] += amount
-          main_menu(day,gold)
-        else:
-          print(f"You only have {inv_stock[selection - 1]}")
-          market(buy_sell,gold)
+        selling(selection,gold)
       else:
         print(f"You don't have own any {inv[selection - 1]}")
         market(buy_sell,gold)
 
-    
+def buying(selection,gold):
+  amount = is_number("How much would you like to buy: ")
+  if amount <= shop_stock[selection - 1]:
+    price = amount * shop_prices[selection - 1]
+    if price <= gold:
+      gold = gold - price
+      inv_stock[selection - 1] += amount
+      shop_stock[selection - 1] -= amount
+      print(f"You spent {price} gold and bought {amount} {shop_items[selection - 1]}")
+      main_menu(day,gold)
+    else:
+      can_buy = gold // shop_prices[selection - 1]
+      print(f"You can't afford this, You can buy {can_buy} {shop_items[selection - 1]}")
+      buying(selection,gold)
+  else:
+    print(f"The market only has {shop_stock[selection - 1]} {shop_items[selection - 1]}")
+    buying(selection,gold)
+
+def selling(selection,gold):
+  amount = is_number("How much would you like to sell: ")
+  if amount <= inv_stock[selection - 1]:
+    profit = amount * shop_prices[selection - 1]
+    gold = gold + profit
+    inv_stock[selection - 1] -= amount
+    shop_stock[selection - 1] += amount
+    print(f"You sold {amount} {shop_items[selection - 1]} and got {profit} gold")
+    main_menu(day,gold)
+  else:
+    print(f"You only have {inv_stock[selection - 1]} {inv[selection - 1]}")
+    selling(selection,gold)
+
+def is_number(prompt) -> int:
+  variable = input(prompt)
+  while variable.isdigit() == False:
+    variable = input(prompt)
+  return(int(variable))
+
 #Start_of_Game
 print("Buy and sell from the traing cart to make a profit")
 print(f"It is day {day}")
 main_menu(day,gold)
 
-#Current_Goal: Don't Break on non integer input (1/2 Done)
+#Current_Goal:
 #Bugs:
